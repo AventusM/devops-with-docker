@@ -1,0 +1,31 @@
+TAG: Alpine image size: 15.7MB
+TAG: Ubuntu image size: 83MB
+
+docker run -it -d devopsdockeruh/simple-web-service:alpine
+docker container exec -it quizzical_villani sh
+
+snapshot of command: tail -f ./text.log below
+
+2021-03-17 16:52:25 +0000 UTC
+2021-03-17 16:52:27 +0000 UTC
+2021-03-17 16:52:29 +0000 UTC
+2021-03-17 16:52:31 +0000 UTC
+2021-03-17 16:52:33 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2021-03-17 16:52:35 +0000 UTC
+2021-03-17 16:52:37 +0000 UTC
+2021-03-17 16:52:39 +0000 UTC
+2021-03-17 16:52:41 +0000 UTC
+/usr/src/app # tail -f ./text.log
+2021-03-17 16:52:57 +0000 UTC
+2021-03-17 16:52:59 +0000 UTC
+2021-03-17 16:53:01 +0000 UTC
+2021-03-17 16:53:03 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2021-03-17 16:53:05 +0000 UTC
+2021-03-17 16:53:07 +0000 UTC
+2021-03-17 16:53:09 +0000 UTC
+2021-03-17 16:53:11 +0000 UTC
+2021-03-17 16:53:13 +0000 UTC
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+2021-03-17 16:53:15 +0000 UTC

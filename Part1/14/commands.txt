@@ -1,0 +1,7 @@
+Frontend
+1. Add the Dockerfile to the root of the project
+2. Run: docker build . -t node-frontend && docker run -p 5000:5000 node-frontend
+
+Backend
+1. Add the Dockerfile to the root of the project
+2. Run: docker build . -t go-project && docker run -p 8080:8080 go-project

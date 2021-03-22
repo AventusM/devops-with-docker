@@ -1,0 +1,6 @@
+docker run -d -it ubuntu sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+docker exec -it fervent_bassi bash
+(within container) apt-get update; apt-get install curl (then exit)
+docker attach fervent_bassi
+
+Input following into empty prompt: helsinki.fi --> Returns Searching.. and the response similar to the task itself

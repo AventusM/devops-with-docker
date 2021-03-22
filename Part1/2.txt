@@ -1,0 +1,11 @@
+docker container stop <id3> (started in task 1)
+docker container prune
+docker ps -a BELOW
+
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+docker rmi nginx:latest
+
+docker images BELOW
+
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE

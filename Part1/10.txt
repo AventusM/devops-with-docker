@@ -1,0 +1,3 @@
+docker run -p 8080:8080 web-server
+
+visiting localhost:8080 returns some json with message/path properties

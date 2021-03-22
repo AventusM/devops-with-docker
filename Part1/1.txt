@@ -1,0 +1,9 @@
+3x docker container run -d nginx
+
+docker container stop <id1> <id2>
+
+docker ps -a response below
+
+26129445f6fb   nginx     "/docker-entrypoint.…"   25 seconds ago   Exited (0) 2 seconds ago                  romantic_ritchie
+ad7affa7a132   nginx     "/docker-entrypoint.…"   34 seconds ago   Exited (0) 2 seconds ago                  inspiring_wu
+930f68138c80   nginx     "/docker-entrypoint.…"   39 seconds ago   Up 38 seconds                   80/tcp    heuristic_napier

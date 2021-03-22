@@ -1,0 +1,2 @@
+The Dockerfile should be at the root of the project. You should be able to access the application from the browser after running following command:
+docker build . -t spring-project && docker run -p 8080:8080 spring-project
