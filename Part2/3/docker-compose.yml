@@ -1,0 +1,19 @@
+version: "3.5"
+
+services:
+  backend:
+    image: go-project # Has to be built through a dockerfile previously or use a username/repository
+    container_name: backend
+    ports:
+      - 8080:8080
+    environment:
+      - REQUEST_ORIGIN=http://localhost:5000
+
+
+  frontend:
+    image: node-frontend # Has to be built through a dockerfile previously or use a username/repository
+    container_name: react
+    ports:
+      - 5000:5000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080

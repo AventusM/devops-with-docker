@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  
+  # requires a text.log file to exist in this directory for 'docker-compose up' to work as intended
+  simple-web-service:
+    image: devopsdockeruh/simple-web-service
+    #build: . --> Not used when pulling an image
+    volumes:
+      - ./text.log:/usr/src/app/text.log
+    container_name: simple-web-service

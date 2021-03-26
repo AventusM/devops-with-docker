@@ -1,0 +1,30 @@
+version: "3.5"
+
+services:
+  kurkkumopo-frontend:
+    image: kurkkumopo-frontend
+    build: ./ml-kurkkumopo-frontend-master # requires the repository master branch to be downloaded/cloned here
+    container_name: kurkkumopo_frontend
+    ports:
+      - 3000:3000
+
+  kurkkumopo-backend:
+    image: kurkkumopo-backend
+    build: ./ml-kurkkumopo-backend-master # requires the repository master branch to be downloaded/cloned here
+    container_name: kurkkumopo-backend
+    ports:
+      - 5000:5000
+    volumes:
+      - model:/src/model
+
+  kurkkumopo-training:
+    image: kurkkumopo-training
+    build: ./ml-kurkkumopo-training-master # requires the repository master branch to be downloaded/cloned here
+    container_name: kurkkumopo-training
+    volumes:
+      - model:/src/model
+      - imgs:/src/imgs
+
+volumes:
+  model:
+  imgs:

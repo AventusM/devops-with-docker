@@ -1,0 +1,60 @@
+version: "3.5"
+
+services:
+  redis:
+    image: redis
+    container_name: backend_cache
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_reverse_proxy
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13.2-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=example
+    networks:
+      - app-network
+
+    container_name: db_redmine
+    volumes:
+      - database:/var/lib/postgresql/data
+
+  backend:
+    image: go-project # Has to be built through a dockerfile previously or use a username/repository
+    container_name: nodejsbackend # insert as backend url (+port) instead of localhost
+    ports:
+      - 8080:8080
+    environment:
+      - POSTGRES_HOST=db_redmine # Link the db
+      - POSTGRES_PASSWORD=example # Use the env password from the host here as well. Everything else defaults to "postgres" like with the postgres docker image env values
+      - REQUEST_ORIGIN=http://localhost:5000
+      - REDIS_HOST=backend_cache
+    networks:
+      - app-network
+
+  frontend:
+    image: node-frontend # Has to be built through a dockerfile previously or use a username/repository
+    container_name: react # insert as frontend url (+port) instead of localhost
+    ports:
+      - 5000:5000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+    networks:
+      - app-network
+
+volumes:
+  database:
+
+networks:
+  app-network: # connect everything together instead of just nginx/backend/frontend. Otherwise postgres and redis will complain about unable to connect initially before somehow succeeding on some defaults perhaps(?)

@@ -1,0 +1,1 @@
+No changes to the original Dockerfiles were necessary in order for docker-compose.yml to work as intended. The whole shebang (example code with the Dockerfiles for both frontend and backend) is included in this directory to signal that everything works.

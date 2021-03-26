@@ -1,0 +1,4 @@
+A TypeScript version of the example (dockerizing the development environment) to a backend portion of an application.
+See the Dockerfile and docker-compose.yml (https://github.com/AventusM/fullstack_project_2020-2021backend). The repository is private, but the course author(s) will get
+the collaborator rights on request. Currently the builds don't get to heroku as previously postinstall script ran after Dockerfile installed dependencies and ruined the image build process.
+It will probably get handled in the next part when going through Github actions. 
