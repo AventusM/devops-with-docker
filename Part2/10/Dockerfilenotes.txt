@@ -1,1 +1,2 @@
-No changes to the original Dockerfiles were necessary in order for docker-compose.yml to work as intended. The whole shebang (example code with the Dockerfiles for both frontend and backend) is included in this directory to signal that everything works.
+No changes to the original Dockerfiles were necessary in order for docker-compose.yml to work as intended. In order for the Dockerfiles to work, you need to add the example material frontend/backend, preferably in the directories here, so that there are no changes to the docker-compose.yml file.
+Alternatively, you can build new images through Dockerfiles elsewhere and just use the image: field as shown in docker-compose.yml.
