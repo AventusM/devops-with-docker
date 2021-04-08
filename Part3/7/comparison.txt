@@ -1,0 +1,17 @@
+Project in question (request access rights on review from aventusm): https://github.com/AventusM/fullstack_project_2020-2021backend
+
+Original Dockerfile size
+
+❯ docker images
+REPOSITORY       TAG          IMAGE ID       CREATED          SIZE
+node-backend     latest       870fdc695b69   14 seconds ago   1.03GB
+
+Alpine Dockerfile size (with non-root user)
+
+❯ docker images
+REPOSITORY       TAG          IMAGE ID       CREATED          SIZE
+node-backend     multi        017bec8651b4   3 seconds ago    150MB
+node-backend     latest       870fdc695b69   39 minutes ago   1.03GB
+
+
+- Result: Multi-stage build with some other small optimizations were MORE than worth it. 1.03GB --> 150MB is great improvement!

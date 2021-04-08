@@ -1,0 +1,15 @@
+NOTE: Both dockerfiles were changed to use "FROM ubuntu:18.04" (+ relevant changes)
+
+FRONTEND
+1. change "FROM node" to "FROM ubuntu:18.04" and installing node separately (e.g. youtube-dl example) --> SIZE = 495MB
+2. combine RUN commands into one --> SIZE = 493MB
+3. add apt-get purge & autoremove commands (curl only, removing node won't work) --> SIZE = 454MB
+- result: Size was slightly larger than what was provided in material (around 432MB expected)
+
+BACKEND
+1. change "FROM golang" to "FROM ubuntu:18.04" and install curl/go etc. separately --> SIZE = 894MB (??)
+2. combine RUN commands into one --> SIZE = 892MB
+3. remove command "go mod download", remove the downloaded tar.gz, purge similar to frontend --> SIZE = 574MB
+4. remove the /usr/local/go directory --> SIZE = 211MB (???)
+- 1.12 and 1.14 buttons work as usual. NOT tested with docker-compose.yml (part 2 buttons)
+- result: From 3.5 golang:alpine image, it seems that 574MB is closer to the truth

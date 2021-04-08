@@ -1,0 +1,60 @@
+name: Server deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  deployment:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2 # Should cover the duplicate key with heroku deployment
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install dependencies
+        run: npm install
+      - name: Run lint
+        run: npm run lint
+      - name: heroku deployment # postinstall script takes care of building .ts to .js
+        if: github.event_name == 'push'
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: blooming-escarpment-41791
+          heroku_email: 8antonm@gmail.com
+          healthcheck: https://blooming-escarpment-41791.herokuapp.com/api/healthcheck # TODO: Hide baseurl?
+          checkstring: ok
+          rollbackonhealthcheckfailed: true
+  tag_new_version:
+    needs: deployment # wait for deployment to finish
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - uses: actions/checkout@v2
+      - name: Patch version tag
+        if: github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message)), '#patch')
+        uses: anothrNick/github-tag-action@1.34.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+      - uses: actions/checkout@v2
+      - name: Minor version tag
+        if: github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message)), '#minor')
+        uses: anothrNick/github-tag-action@1.34.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: minor
+      - uses: actions/checkout@v2
+      - name: Major version tag
+        if: github.event_name == 'push' && contains(join(toJson(github.event.commits.*.message)), '#major')
+        uses: anothrNick/github-tag-action@1.34.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: major

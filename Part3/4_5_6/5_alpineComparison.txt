@@ -1,0 +1,14 @@
+FRONTEND
+- before (3.4 ubuntu:18.04 Dockerfile): 454MB
+- after (3.5 node-14:alpine Dockerfile): 342MB
+
+BACKEND
+- before (3.4 ubuntu:18.04 Dockerfile): 574MB (211MB without /usr/local/go directory)
+- after (3.5 golang:alpine Dockerfile): 447MB
+
+output for 'docker images'
+REPOSITORY       TAG       IMAGE ID       CREATED          SIZE
+react-frontend   alpine    3a02f62a88f3   14 seconds ago   342MB
+react-frontend   latest    e77b88f07e0d   2 minutes ago    454MB
+go-backend       alpine    0d622c8ba54f   4 minutes ago    447MB
+go-backend       latest    56e1af9b7534   5 minutes ago    574MB

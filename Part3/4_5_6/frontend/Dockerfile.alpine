@@ -1,0 +1,15 @@
+FROM node:14-alpine
+ENV REACT_APP_BACKEND_URL http://localhost:8080
+EXPOSE 5000
+COPY . .
+
+# "adduser -D xyz" instead of "useradd -m xyz"
+RUN npm install -g serve \
+    && npm install \
+    && npm run build \
+    && adduser -D NON_ROOT_USER
+
+USER NON_ROOT_USER
+
+# run the application
+CMD ["serve", "-s", "-l", "5000", "build"]

@@ -1,0 +1,14 @@
+1. backend/frontend to different directories (in the root directory of code repository as the Dockerfile runs "COPY . .")
+2. build and run pre-existing Dockerfiles with following additions below
+
+# Run as non-root user
+RUN useradd -m NON_ROOT_USER
+USER NON_ROOT_USER
+
+3. run the docker image with "whoami" attached (example below)
+
+- docker run go-backend-non-root whoami
+# returns 'NON_ROOT_USER' when running built image named as above WITH user priviledge changes
+
+- docker run go-project whoami
+# returns 'root' when running built image named as above WITHOUT user priviledge changes (e.g. part 1 Dockerfiles)

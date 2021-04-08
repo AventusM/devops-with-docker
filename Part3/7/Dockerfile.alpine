@@ -1,0 +1,21 @@
+# Build
+FROM node:15 AS BUILD_STAGE
+
+WORKDIR /usr/src/app
+COPY . .
+RUN npm install \
+    && npm run tsc
+
+
+# Production
+FROM node:15-alpine
+
+COPY . .
+COPY --from=BUILD_STAGE /usr/src/app/build ./build
+
+RUN npm install --only=production \
+    && adduser -D NON_ROOT_USER
+
+USER NON_ROOT_USER
+EXPOSE 3001
+CMD npm start

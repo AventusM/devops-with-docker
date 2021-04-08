@@ -1,0 +1,19 @@
+FROM node:14-alpine as BUILD_STAGE
+
+# "adduser -D xyz" instead of "useradd -m xyz"
+
+# Move env and expose ports in the "build" stage
+EXPOSE 5000
+ENV REACT_APP_BACKEND_URL http://localhost:8080
+COPY . .
+RUN npm install
+RUN npm run build
+
+FROM node:14-alpine
+COPY --from=BUILD_STAGE /build ./build
+RUN npm install -g serve \
+    && adduser -D NON_ROOT_USER
+
+# Set user in the "prod" stage
+USER NON_ROOT_USER
+CMD ["serve", "-s", "-l", "5000", "./build"]

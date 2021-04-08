@@ -1,0 +1,24 @@
+FROM golang:1.16.3-alpine as BUILD_STAGE
+
+# Must have a workdir set up, otherwise you might get this "$GOPATH/go.mod exists but should not"
+WORKDIR /app
+COPY . .
+
+RUN adduser -D NON_ROOT_USER
+
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
+RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
+
+# Could use ENV also
+RUN export CGO_ENABLED=0 \
+    && go build
+
+FROM scratch
+EXPOSE 8080
+ENV REQUEST_ORIGIN http://localhost:5000
+COPY --from=BUILD_STAGE /etc/passwd /etc/passwd
+COPY --from=BUILD_STAGE /app/server ./server
+
+USER NON_ROOT_USER
+CMD ["./server"]

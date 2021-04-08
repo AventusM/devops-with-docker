@@ -1,0 +1,4 @@
+❯ docker images
+REPOSITORY       TAG          IMAGE ID       CREATED          SIZE
+react-frontend   multistage   882bbe701de5   25 seconds ago   124MB
+go-backend       multi        c2f2a4aadfea   5 minutes ago    18MB <-- Meets the 25MB treshold in order to pass the excercise
